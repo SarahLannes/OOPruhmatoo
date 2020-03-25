@@ -12,7 +12,9 @@ public class Main {
             teinemängija=hoia;
         }
         Mäng.täidaTabel();
-        Mäng.valjasta_tabel();
+
+        Mäng.käik("X");
+        Mäng.käik("O");
         
     }
 }
