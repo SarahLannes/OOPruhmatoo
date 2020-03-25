@@ -15,6 +15,7 @@ public class Main {
 
         Mäng.käik("X");
         Mäng.käik("O");
-        
+
+
     }
 }
