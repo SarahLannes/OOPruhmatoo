@@ -11,6 +11,8 @@ public class Main {
             essamängija=teinemängija;
             teinemängija=hoia;
         }
+        Mäng.täidaTabel();
+        Mäng.valjasta_tabel();
         
     }
 }
