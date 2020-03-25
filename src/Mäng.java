@@ -70,6 +70,7 @@ public class Mäng {
     }
 
 
+
     public static void valjasta_tabel() {
         for (int i = 0; i < tabel.length; i++) {
             for (int j = 0; j < tabel[i].length; j++)
