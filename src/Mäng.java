@@ -21,10 +21,10 @@ public class Mäng {
         valjasta_tabel();
         boolean käikTehtud = false;
         while (käikTehtud == false) {
-            System.out.printf("Millisesse ritta tahad käiku teha? ");
+            System.out.printf("Millisesse veergu tahad käiku teha? ");
             Scanner in = new Scanner(System.in);
             int mitmesRida = in.nextInt() - 1;
-            if (mitmesRida < tabel.length - 1 && mitmesRida>=0) {
+            if (mitmesRida < tabel.length - 1 && mitmesRida >= 0) {
                 for (int i = tabel.length - 1; i >= 0; i--) {
                     String[] rida = tabel[i];
                     if (rida[mitmesRida].equals("-")) {
@@ -32,37 +32,40 @@ public class Mäng {
                         käikTehtud = true;
                         break;
                     }
+                    else if (i==0){
+                        System.out.println("See rida on juba täis!!!");
+                        valjasta_tabel();
+                        break;
+                    }
                 }
             } else if (käikTehtud == false) {
                 System.out.println("See rida ei sobi!!!");
-                valjasta_tabel();}
+                valjasta_tabel();
+            }
         }
-        valjasta_tabel();
     }
 
     //See kes alustab, lisab X-e.
     //Teine mängija mängib O-dega.
-    public static int kasNeliReas(){
-        for (int i = tabel.length-1; i < 0; i--) {
+    public static int kasNeliReas() {
+        for (int i = tabel.length - 1; i > 0; i--) {
             String[] rida = tabel[i];
             String sõne = String.join("", rida);
-            if (sõne.contains("XXXX")){
+            if (sõne.contains("XXXX")) {
                 return 1;
-            }
-            else if (sõne.contains("OOOO")){
+            } else if (sõne.contains("OOOO")) {
                 return 2;
             }
         }
         for (int i = 0; i < tabel[0].length; i++) {
             String[] veerg = new String[tabel.length];
-            for (int j = 0; j <tabel.length ; j++) {
-                veerg[j]=tabel[j][i];
+            for (int j = 0; j < tabel.length; j++) {
+                veerg[j] = tabel[j][i];
             }
             String sõne = String.join("", veerg);
-            if (sõne.contains("XXXX")){
+            if (sõne.contains("XXXX")) {
                 return 1;
-            }
-            else if (sõne.contains("OOOO")){
+            } else if (sõne.contains("OOOO")) {
                 return 2;
             }
         }
@@ -78,6 +81,42 @@ public class Mäng {
             System.out.println();
         }
         System.out.println();
-    }}
+    }
+
+    public static void pärisMäng(Mängija essamängija, Mängija teinemängija){
+        if (Mäng.valiAlustaja()==false){
+            Mängija hoia = essamängija;
+            essamängija=teinemängija;
+            teinemängija=hoia;
+        }
+        Mäng.täidaTabel();
+        int kellekäik = 0;
+        while (kasNeliReas()==0){
+            System.out.println();
+            System.out.println();
+            if (kellekäik%2==0){
+                System.out.println(essamängija.nimi + " kord!");
+                käik("X");
+
+            }
+            else {
+                System.out.println(teinemängija.nimi + " kord!");
+                käik("O");
+
+            }
+            kellekäik++;
+            System.out.println("Käik tehtud!");
+        }
+        valjasta_tabel();
+        if (kasNeliReas()==1){
+            System.out.println(essamängija.nimi + " võitis!");
+        }
+        else {
+            System.out.println(teinemängija.nimi + " võitis!");
+        }
+
+
+    }
+}
 
 
