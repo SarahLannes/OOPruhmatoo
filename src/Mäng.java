@@ -6,6 +6,35 @@ public class Mäng {
     }
 
 
+    //See kes alustab, lisab X-e.
+    //Teine mängija mängib O-dega.
+    public static int kasNeliReas(){
+        for (int i = tabel.length-1; i < 0; i--) {
+            String[] rida = tabel[i];
+            String sõne = String.join("", rida);
+            if (sõne.contains("XXXX")){
+                return 1;
+            }
+            else if (sõne.contains("OOOO")){
+                return 2;
+            }
+        }
+        for (int i = 0; i < tabel[0].length; i++) {
+            String[] veerg = new String[tabel.length];
+            for (int j = 0; j <tabel.length ; j++) {
+                veerg[j]=tabel[j][i];
+            }
+            String sõne = String.join("", veerg);
+            if (sõne.contains("XXXX")){
+                return 1;
+            }
+            else if (sõne.contains("OOOO")){
+                return 2;
+            }
+        }
+        return 0;
+    }
+
     public static void täidaTabel(){
         for (int i = 0; i <tabel.length ; i++) {
             String [] rida = tabel[i];
