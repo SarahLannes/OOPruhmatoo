@@ -2,6 +2,7 @@ public class Mängija {
     String nimi;
     int vanus;
 
+
     public String getNimi() {
         return nimi;
     }
@@ -10,4 +11,5 @@ public class Mängija {
         this.nimi = nimi;
         this.vanus = vanus;
     }
+
 }
