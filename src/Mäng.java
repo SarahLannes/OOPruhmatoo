@@ -9,7 +9,7 @@ public class Mäng {
      * Meetodi abil valitakse loosiga kumb mängija alustab.
      *
      * Parameetrid puuduvad.
-     * Meetod ei tagasta midagi.
+     * Meetod tagastab tõeväärtuse true, kui alustab esimene mängija ja false, kui alustab teine mängija.
      */
     public static boolean valiAlustaja() {
         return Math.random() < 0.5;
@@ -162,6 +162,7 @@ public class Mäng {
 
         Mäng.täidaTabel();
         int kellekäik = 0;
+        //Kui muutuja kellekäik väärtus on paarisarv, siis käib esimene mängija, kui paaritu arv, siis käib teine mängija.
         while (kasNeliReas() == 0) {
             System.out.println();
             System.out.println();
