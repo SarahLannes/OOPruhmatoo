@@ -1,7 +1,10 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
+import java.util.StringJoiner;
 
 public class Mäng {
-    static String[][] tabel = new String[7][6];
+    static String[][] tabel = new String[6][7];
 
     public static boolean valiAlustaja() {
         return Math.random() < 0.5;
@@ -31,8 +34,7 @@ public class Mäng {
                         rida[mitmesRida] = märk;
                         käikTehtud = true;
                         break;
-                    }
-                    else if (i==0){
+                    } else if (i == 0) {
                         System.out.println("See rida on juba täis!!!");
                         valjasta_tabel();
                         break;
@@ -69,10 +71,50 @@ public class Mäng {
                 return 2;
             }
         }
+        int diagonaalivõit= kontrollidiagonaalid();
+
+        if (diagonaalivõit>0){
+            return diagonaalivõit;
+        }
+
         return 0;
     }
 
+    public static int kontrollidiagonaalid() {
+        for (int rowStart = 0; rowStart < tabel[0].length - 4; rowStart++) {
+            List<String> diagonaal = new ArrayList();
+            int row, col;
+            for (row = rowStart, col = 0; row < tabel[0].length-1 && col < tabel.length; row++, col++) {
+                diagonaal.add(tabel[row][col]);
+            }
+            String kokku = diagonaal.toString().replace("[", "").replace("]", "")
+                    .replace(", ", "");
+            ;
+            System.out.println(kokku);
+            if (kokku.contains("XXXX")) {
+                return 1;
+            } else if (kokku.contains("OOOO")) {
+                return 2;
+            }
+        }
 
+// top-left to bottom-right - red diagonals
+        for (int colStart = 1; colStart < tabel.length - 4; colStart++) {
+            StringBuilder diagonaal1 = new StringBuilder();
+            int row, col;
+            for (row = 0, col = colStart; row < tabel[0].length && col < tabel.length; row++, col++) {
+                diagonaal1.append(tabel[row][col]);
+            }
+            String kokku1=diagonaal1.toString().replace("[", "").replace("]", "")
+                    .replace(", ", "");
+            if (kokku1.contains("XXXX")) {
+                return 1;
+            } else if (kokku1.contains("OOOO")) {
+                return 2;
+            }
+        }
+        return 0;
+    }
 
     public static void valjasta_tabel() {
         for (int i = 0; i < tabel.length; i++) {
@@ -83,23 +125,22 @@ public class Mäng {
         System.out.println();
     }
 
-    public static void pärisMäng(Mängija essamängija, Mängija teinemängija){
-        if (Mäng.valiAlustaja()==false){
+    public static void pärisMäng(Mängija essamängija, Mängija teinemängija) {
+        if (Mäng.valiAlustaja() == false) {
             Mängija hoia = essamängija;
-            essamängija=teinemängija;
-            teinemängija=hoia;
+            essamängija = teinemängija;
+            teinemängija = hoia;
         }
         Mäng.täidaTabel();
         int kellekäik = 0;
-        while (kasNeliReas()==0){
+        while (kasNeliReas() == 0) {
             System.out.println();
             System.out.println();
-            if (kellekäik%2==0){
+            if (kellekäik % 2 == 0) {
                 System.out.println(essamängija.nimi + " kord!");
                 käik("X");
 
-            }
-            else {
+            } else {
                 System.out.println(teinemängija.nimi + " kord!");
                 käik("O");
 
@@ -108,10 +149,9 @@ public class Mäng {
             System.out.println("Käik tehtud!");
         }
         valjasta_tabel();
-        if (kasNeliReas()==1){
+        if (kasNeliReas() == 1) {
             System.out.println(essamängija.nimi + " võitis!");
-        }
-        else {
+        } else {
             System.out.println(teinemängija.nimi + " võitis!");
         }
 
