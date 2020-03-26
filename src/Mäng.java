@@ -1,7 +1,5 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
 import java.util.Scanner;
-import java.util.StringJoiner;
 
 public class Mäng {
     static String[][] tabel = new String[6][7];
@@ -14,16 +12,14 @@ public class Mäng {
     public static void täidaTabel() {
         for (int i = 0; i < tabel.length; i++) {
             String[] rida = tabel[i];
-            for (int j = 0; j < rida.length; j++) {
-                rida[j] = "-";
-            }
+            Arrays.fill(rida, "-");
         }
     }
 
     public static void käik(String märk) {
         valjasta_tabel();
         boolean käikTehtud = false;
-        while (käikTehtud == false) {
+        while (!käikTehtud) {
             System.out.printf("Millisesse veergu tahad käiku teha? ");
             Scanner in = new Scanner(System.in);
             int mitmesRida = in.nextInt() - 1;
@@ -71,46 +67,28 @@ public class Mäng {
                 return 2;
             }
         }
-        int diagonaalivõit= kontrollidiagonaalid();
-
-        if (diagonaalivõit>0){
-            return diagonaalivõit;
-        }
-
-        return 0;
+        return kontrollidiagonaalid();
     }
 
     public static int kontrollidiagonaalid() {
-        for (int rowStart = 0; rowStart < tabel[0].length - 4; rowStart++) {
-            List<String> diagonaal = new ArrayList();
-            int row, col;
-            for (row = rowStart, col = 0; row < tabel[0].length-1 && col < tabel.length; row++, col++) {
-                diagonaal.add(tabel[row][col]);
-            }
-            String kokku = diagonaal.toString().replace("[", "").replace("]", "")
-                    .replace(", ", "");
-            ;
-            System.out.println(kokku);
-            if (kokku.contains("XXXX")) {
-                return 1;
-            } else if (kokku.contains("OOOO")) {
-                return 2;
+        // ühtepidi diagonaalide kontroll
+        for (int i = 3; i < tabel.length; i++) {
+            for (int j = 0; j < tabel[0].length - 3; j++) {
+                if ((tabel[i][j] + tabel[i - 1][j + 1] + tabel[i - 2][j + 2] + tabel[i - 3][j + 3]).equals("XXXX")) {
+                    return 1;
+                } else if ((tabel[i][j] + tabel[i - 1][j + 1] + tabel[i - 2][j + 2] + tabel[i - 3][j + 3]).equals("OOOO")) {
+                    return 2;
+                }
             }
         }
-
-// top-left to bottom-right - red diagonals
-        for (int colStart = 1; colStart < tabel.length - 4; colStart++) {
-            StringBuilder diagonaal1 = new StringBuilder();
-            int row, col;
-            for (row = 0, col = colStart; row < tabel[0].length && col < tabel.length; row++, col++) {
-                diagonaal1.append(tabel[row][col]);
-            }
-            String kokku1=diagonaal1.toString().replace("[", "").replace("]", "")
-                    .replace(", ", "");
-            if (kokku1.contains("XXXX")) {
-                return 1;
-            } else if (kokku1.contains("OOOO")) {
-                return 2;
+        // teistpidi diagonaalide kontroll
+        for (int i = 3; i < tabel.length; i++) {
+            for (int j = 3; j < tabel[0].length; j++) {
+                if ((tabel[i][j] + tabel[i - 1][j - 1] + tabel[i - 2][j - 2] + tabel[i - 3][j - 3]).equals("XXXX")) {
+                    return 1;
+                } else if ((tabel[i][j] + tabel[i - 1][j - 1] + tabel[i - 2][j - 2] + tabel[i - 3][j - 3]).equals("OOOO")) {
+                    return 2;
+                }
             }
         }
         return 0;
@@ -126,7 +104,7 @@ public class Mäng {
     }
 
     public static void pärisMäng(Mängija essamängija, Mängija teinemängija) {
-        if (Mäng.valiAlustaja() == false) {
+        if (!Mäng.valiAlustaja()) {
             Mängija hoia = essamängija;
             essamängija = teinemängija;
             teinemängija = hoia;
@@ -154,7 +132,6 @@ public class Mäng {
         } else {
             System.out.println(teinemängija.nimi + " võitis!");
         }
-
 
     }
 }
