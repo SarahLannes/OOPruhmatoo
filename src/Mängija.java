@@ -1,15 +1,13 @@
 public class Mängija {
     String nimi;
-    int vanus;
 
 
     public String getNimi() {
         return nimi;
     }
 
-    public Mängija(String nimi, int vanus) {
+    public Mängija(String nimi) {
         this.nimi = nimi;
-        this.vanus = vanus;
     }
 
 }
