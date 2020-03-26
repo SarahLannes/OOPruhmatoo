@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Mäng {
@@ -11,16 +12,14 @@ public class Mäng {
     public static void täidaTabel() {
         for (int i = 0; i < tabel.length; i++) {
             String[] rida = tabel[i];
-            for (int j = 0; j < rida.length; j++) {
-                rida[j] = "-";
-            }
+            Arrays.fill(rida, "-");
         }
     }
 
     public static void käik(String märk) {
         valjasta_tabel();
         boolean käikTehtud = false;
-        while (käikTehtud == false) {
+        while (!käikTehtud) {
             System.out.printf("Millisesse veergu tahad käiku teha? ");
             Scanner in = new Scanner(System.in);
             int mitmesRida = in.nextInt() - 1;
@@ -31,8 +30,7 @@ public class Mäng {
                         rida[mitmesRida] = märk;
                         käikTehtud = true;
                         break;
-                    }
-                    else if (i==0){
+                    } else if (i == 0) {
                         System.out.println("See rida on juba täis!!!");
                         valjasta_tabel();
                         break;
@@ -69,10 +67,32 @@ public class Mäng {
                 return 2;
             }
         }
-        return 0;
+        return kontrollidiagonaalid();
     }
 
-
+    public static int kontrollidiagonaalid() {
+        // ühtepidi diagonaalide kontroll
+        for (int i = 3; i < tabel.length; i++) {
+            for (int j = 0; j < tabel[0].length - 3; j++) {
+                if ((tabel[i][j] + tabel[i - 1][j + 1] + tabel[i - 2][j + 2] + tabel[i - 3][j + 3]).equals("XXXX")) {
+                    return 1;
+                } else if ((tabel[i][j] + tabel[i - 1][j + 1] + tabel[i - 2][j + 2] + tabel[i - 3][j + 3]).equals("OOOO")) {
+                    return 2;
+                }
+            }
+        }
+        // teistpidi diagonaalide kontroll
+        for (int i = 3; i < tabel.length; i++) {
+            for (int j = 3; j < tabel[0].length; j++) {
+                if ((tabel[i][j] + tabel[i - 1][j - 1] + tabel[i - 2][j - 2] + tabel[i - 3][j - 3]).equals("XXXX")) {
+                    return 1;
+                } else if ((tabel[i][j] + tabel[i - 1][j - 1] + tabel[i - 2][j - 2] + tabel[i - 3][j - 3]).equals("OOOO")) {
+                    return 2;
+                }
+            }
+        }
+        return 0;
+    }
 
     public static void valjasta_tabel() {
         for (int i = 0; i < tabel.length; i++) {
@@ -83,25 +103,24 @@ public class Mäng {
         System.out.println();
     }
 
-    public static void pärisMäng(Mängija essamängija, Mängija teinemängija){
-        if (Mäng.valiAlustaja()==false){
+    public static void pärisMäng(Mängija essamängija, Mängija teinemängija) {
+        if (!Mäng.valiAlustaja()) {
             Mängija hoia = essamängija;
-            essamängija=teinemängija;
-            teinemängija=hoia;
+            essamängija = teinemängija;
+            teinemängija = hoia;
         }
         System.out.println(essamängija.getNimi() + " märgiks on X.");
         System.out.println(teinemängija.getNimi() + " märgiks on O.");
         Mäng.täidaTabel();
         int kellekäik = 0;
-        while (kasNeliReas()==0){
+        while (kasNeliReas() == 0) {
             System.out.println();
             System.out.println();
-            if (kellekäik%2==0){
+            if (kellekäik % 2 == 0) {
                 System.out.println(essamängija.nimi + " kord!");
                 käik("X");
 
-            }
-            else {
+            } else {
                 System.out.println(teinemängija.nimi + " kord!");
                 käik("O");
 
@@ -110,13 +129,11 @@ public class Mäng {
             System.out.println("Käik tehtud!");
         }
         valjasta_tabel();
-        if (kasNeliReas()==1){
+        if (kasNeliReas() == 1) {
             System.out.println(essamängija.nimi + " võitis!");
-        }
-        else {
+        } else {
             System.out.println(teinemängija.nimi + " võitis!");
         }
-
 
     }
 }
