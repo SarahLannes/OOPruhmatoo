@@ -3,6 +3,7 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
+
         System.out.println("Mäng Ühenda4");
         System.out.println("Mängu eesmärgiks on saada 4 märki järjest kas ritta, veergu või diagonaali.");
         System.out.println("Head mängimist!");
