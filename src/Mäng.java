@@ -27,7 +27,7 @@ public class Mäng {
             System.out.printf("Millisesse veergu tahad käiku teha? ");
             Scanner in = new Scanner(System.in);
             int mitmesRida = in.nextInt() - 1;
-            if (mitmesRida < tabel.length - 1 && mitmesRida >= 0) {
+            if (mitmesRida < tabel[0].length && mitmesRida >= 0) {
                 for (int i = tabel.length - 1; i >= 0; i--) {
                     String[] rida = tabel[i];
                     if (rida[mitmesRida].equals("-")) {
