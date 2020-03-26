@@ -89,6 +89,8 @@ public class Mäng {
             essamängija=teinemängija;
             teinemängija=hoia;
         }
+        System.out.println(essamängija.getNimi() + " märgiks on X.");
+        System.out.println(teinemängija.getNimi() + " märgiks on O.");
         Mäng.täidaTabel();
         int kellekäik = 0;
         while (kasNeliReas()==0){
