@@ -9,13 +9,13 @@ public class Main {
         System.out.println("Head mängimist!");
         System.out.println();
         Scanner in = new Scanner(System.in);
-        System.out.printf("Sisesta esimese mängija nimi: ");
+        System.out.print("Sisesta esimese mängija nimi: ");
         String esimesenimi = in.next();
-        System.out.printf("Sisesta teise mängija nimi: ");
+        System.out.print("Sisesta teise mängija nimi: ");
         String teisenimi = in.next();
-        Mängija essamängija= new Mängija(esimesenimi);
-        Mängija teinemängija = new Mängija(teisenimi);
-        Mäng.pärisMäng(essamängija, teinemängija);
+        Mangija essamangija= new Mangija(esimesenimi);
+        Mangija teinemangija = new Mangija(teisenimi);
+        Mang.parisMang(essamangija, teinemangija);
 
 
     }

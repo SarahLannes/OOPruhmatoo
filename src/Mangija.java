@@ -1,4 +1,4 @@
-public class Mängija {
+public class Mangija {
     String nimi;
 
 
@@ -6,7 +6,7 @@ public class Mängija {
         return nimi;
     }
 
-    public Mängija(String nimi) {
+    public Mangija(String nimi) {
         this.nimi = nimi;
     }
 

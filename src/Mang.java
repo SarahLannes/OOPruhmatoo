@@ -1,7 +1,7 @@
 import java.util.Arrays;
 import java.util.Scanner;
 
-public class Mäng {
+public class Mang {
     //mängutabel
     static String[][] tabel = new String[6][7];
 
@@ -11,7 +11,7 @@ public class Mäng {
      * Parameetrid puuduvad.
      * Meetod tagastab tõeväärtuse true, kui alustab esimene mängija ja false, kui alustab teine mängija.
      */
-    public static boolean valiAlustaja() {
+    private static boolean valiAlustaja() {
         return Math.random() < 0.5;
     }
 
@@ -21,7 +21,7 @@ public class Mäng {
      * Parameetrid puuduvad.
      * Meetod ei tagasta midagi.
      */
-    public static void täidaTabel() {
+    private static void taidaTabel() {
         for (int i = 0; i < tabel.length; i++) {
             String[] rida = tabel[i];
             Arrays.fill(rida, "-");
@@ -31,34 +31,34 @@ public class Mäng {
     /**
      * Meetodi abil tehakse käik.
      *
-     * @param märk Esimese või teise mängija märk mida hakatakse tabelisse lisama.
+     * @param mark Esimese või teise mängija märk mida hakatakse tabelisse lisama.
      * Meetod ei tagasta midagi.
      */
-    public static void käik(String märk) {
-        valjasta_tabel();
-        boolean käikTehtud = false;
-        while (!käikTehtud) {
-            System.out.printf("Millisesse veergu tahad käiku teha? ");
+    private static void kaik(String mark) {
+        valjastaTabel();
+        boolean kaikTehtud = false;
+        while (!kaikTehtud) {
+            System.out.print("Millisesse veergu tahad käiku teha? ");
             Scanner in = new Scanner(System.in);
             int mitmesRida = in.nextInt() - 1;
             if (mitmesRida < tabel[0].length && mitmesRida >= 0) {
                 for (int i = tabel.length - 1; i >= 0; i--) {
                     String[] rida = tabel[i];
                     if (rida[mitmesRida].equals("-")) {
-                        rida[mitmesRida] = märk;
-                        käikTehtud = true;
+                        rida[mitmesRida] = mark;
+                        kaikTehtud = true;
                         break;
                     } else if (i == 0) {
                         //kui rida on juba täis.
                         System.out.println("See rida on juba täis!!!");
-                        valjasta_tabel();
+                        valjastaTabel();
                         break;
                     }
                 }
-            } else if (käikTehtud == false) {
+            } else {
                 //kui sellise indeksiga rida ei leidu.
                 System.out.println("See rida ei sobi!!!");
-                valjasta_tabel();
+                valjastaTabel();
             }
         }
     }
@@ -70,14 +70,14 @@ public class Mäng {
      * Parameetrid puuduvad.
      * Meetod tagastab 1, kui esimene mängija on võitnud, 2 kui teine mängija on võitnud ja 0 kui kumbki mängija pole veel võitnud.
      */
-    public static int kasNeliReas() {
+    private static int kasNeliReas() {
         //ridade kontroll
         for (int i = tabel.length - 1; i > 0; i--) {
             String[] rida = tabel[i];
-            String sõne = String.join("", rida);
-            if (sõne.contains("XXXX")) {
+            String sone = String.join("", rida);
+            if (sone.contains("XXXX")) {
                 return 1;
-            } else if (sõne.contains("OOOO")) {
+            } else if (sone.contains("OOOO")) {
                 return 2;
             }
         }
@@ -87,15 +87,15 @@ public class Mäng {
             for (int j = 0; j < tabel.length; j++) {
                 veerg[j] = tabel[j][i];
             }
-            String sõne = String.join("", veerg);
-            if (sõne.contains("XXXX")) {
+            String sone = String.join("", veerg);
+            if (sone.contains("XXXX")) {
                 return 1;
-            } else if (sõne.contains("OOOO")) {
+            } else if (sone.contains("OOOO")) {
                 return 2;
             }
         }
         //diagonaalide kontroll
-        return kontrollidiagonaalid();
+        return kontrolliDiagonaalid();
     }
     /**
      * Meetod kontrollib, kas mõnes diagonaalis on neli samasugust sümbolit reas.
@@ -103,7 +103,7 @@ public class Mäng {
      * Parameetrid puuduvad.
      * Meetod tagastab 1, kui esimene mängija on võitnud, 2 kui teine mängija on võitnud ja 0 kui kumbki mängija pole veel võitnud.
      */
-    public static int kontrollidiagonaalid() {
+    private static int kontrolliDiagonaalid() {
         // ühtepidi diagonaalide kontroll
         for (int i = 3; i < tabel.length; i++) {
             for (int j = 0; j < tabel[0].length - 3; j++) {
@@ -132,7 +132,7 @@ public class Mäng {
      * Parameetrid puuduvad.
      * Meetod ei tagasta midagi.
      */
-    public static void valjasta_tabel() {
+    private static void valjastaTabel() {
         for (int i = 0; i < tabel.length; i++) {
             for (int j = 0; j < tabel[i].length; j++)
                 System.out.print(tabel[i][j] + " ");
@@ -144,45 +144,45 @@ public class Mäng {
     /**
      * Meetodis rakendatakse ülaltoodud meetodeid, et "käivitada" mäng.
      *
-     * @param essamängija Mängija number 1.
-     * @param teinemängija Mängija number 2.
+     * @param essamangija Mängija number 1.
+     * @param teinemangija Mängija number 2.
      * Meetod ei tagasta midagi.
      */
-    public static void pärisMäng(Mängija essamängija, Mängija teinemängija) {
-        if (!Mäng.valiAlustaja()) {
-            Mängija hoia = essamängija;
-            essamängija = teinemängija;
-            teinemängija = hoia;
+    public static void parisMang(Mangija essamangija, Mangija teinemangija) {
+        if (!Mang.valiAlustaja()) {
+            Mangija hoia = essamangija;
+            essamangija = teinemangija;
+            teinemangija = hoia;
         }
 
         //See kes alustab, lisab X-e.
         //Teine mängija mängib O-dega.
-        System.out.println(essamängija.getNimi() + " märgiks on X.");
-        System.out.println(teinemängija.getNimi() + " märgiks on O.");
+        System.out.println(essamangija.getNimi() + " märgiks on X.");
+        System.out.println(teinemangija.getNimi() + " märgiks on O.");
 
-        Mäng.täidaTabel();
-        int kellekäik = 0;
+        Mang.taidaTabel();
+        int kellekaik = 0;
         //Kui muutuja kellekäik väärtus on paarisarv, siis käib esimene mängija, kui paaritu arv, siis käib teine mängija.
         while (kasNeliReas() == 0) {
             System.out.println();
             System.out.println();
-            if (kellekäik % 2 == 0) {
-                System.out.println(essamängija.nimi + " kord!");
-                käik("X");
+            if (kellekaik % 2 == 0) {
+                System.out.println(essamangija.nimi + " kord!");
+                kaik("X");
 
             } else {
-                System.out.println(teinemängija.nimi + " kord!");
-                käik("O");
+                System.out.println(teinemangija.nimi + " kord!");
+                kaik("O");
 
             }
-            kellekäik++;
+            kellekaik++;
             System.out.println("Käik tehtud!");
         }
-        valjasta_tabel();
+        valjastaTabel();
         if (kasNeliReas() == 1) {
-            System.out.println(essamängija.getNimi() + " võitis!");
+            System.out.println(essamangija.getNimi() + " võitis!");
         } else {
-            System.out.println(teinemängija.getNimi() + " võitis!");
+            System.out.println(teinemangija.getNimi() + " võitis!");
         }
 
     }
